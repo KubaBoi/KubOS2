@@ -1,5 +1,6 @@
 #include "types.h"
 #include "gdt.h"
+#include "interrupts.h"
 
 void clearScreen() {
     //testovaci
@@ -57,6 +58,9 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t multiboot_m
     printf("Rybi ryby");
 
     GlobalDescriptorTable gdt;
+    InterruptManager interrupts(0x20, &gdt);
+
+    interrupts.Activate();
 
     while(true);
 }
