@@ -112,27 +112,17 @@ uint16_t InterruptManager::HardwareInterruptOffset()
 
 void InterruptManager::Activate()
 {
-    //if(ActiveInterruptManager == 0)
-    {
-        //ActiveInterruptManager = this;
-        asm("sti");
-    }
+    asm("sti");
 }
 
 void InterruptManager::Deactivate()
 {
-    /*if(ActiveInterruptManager == this)
-    {
-        ActiveInterruptManager = 0;
-        */
-        //asm("cli");
-        /*
-    }*/
+    asm("cli");
 }
 
 uint32_t InterruptManager::HandleInterrupt(uint8_t interrupt, uint32_t esp)
 {
-    char* foo = "INTERRUPT 0x00";
+    char* foo = "\nINTERRUPT 0x00";
     char* hex = "0123456789ABCDEF";
 
     foo[12] = hex[(interrupt >> 4) & 0xF];

@@ -53,7 +53,7 @@ extern "C" void callConstructors() {
         (*i)();
 }
 
-extern "C" void kernelMain(const void* multiboot_structure, uint32_t multiboot_magic) {
+extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot_magic*/) {
     clearScreen();
     printf("Rybi ryby");
 

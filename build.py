@@ -6,6 +6,9 @@ subprocess.run(["make", "clean"])
 objects = ""
 asmObjects = "$(LIBDIR)/loader.o $(LIBDIR)/interruptstubs.o "
 
+subprocess.run(["make", "loader.o"])
+subprocess.run(["make", "interruptstubs.o"])
+
 for (dirpath, dirnames, filenames) in walk("src"):
     for file in filenames:
         name = file.split(".")[0]
@@ -31,8 +34,6 @@ make KubOS.iso
 make run
 """
 
-subprocess.run(["make", "loader.o"])
-subprocess.run(["make", "interruptstubs.o"])
 subprocess.run(["make", "KubOS.bin"])
 subprocess.run(["make", "KubOS.iso"])
 subprocess.run(["make", "run"])
