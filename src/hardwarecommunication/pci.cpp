@@ -92,6 +92,7 @@ Driver* PeripheralComponentInterconnectController::GetDriver(PeripheralComponent
             break;
 
         case 0x8086: // Intel
+            printf("INTEL ");
             break;
     }
 
@@ -99,6 +100,7 @@ Driver* PeripheralComponentInterconnectController::GetDriver(PeripheralComponent
         case 0x03: // graphics
             switch (dev.subclass_id) {
                 case 0x00: // VGA
+                    printf("VGA ");
                     break;
             }
             break;
