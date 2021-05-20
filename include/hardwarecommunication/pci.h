@@ -40,9 +40,9 @@ namespace kubos {
                 PeripheralComponentInterconnectController();
                 ~PeripheralComponentInterconnectController();
 
-                common::uint32_t Read(common::uint16_t bus, common::uint16_t device, common::uint16_t function, common::uint16_t registeroffset);
-                void Write(common::uint16_t bus, common::uint16_t device, common::uint16_t function, common::uint16_t registeroffset, common::uint32_t value);
-                bool DeviceHasFunction(common::uint16_t bus, common::uint16_t device);
+                common::uint32_t Read(common::uint16_t bus, common::uint16_t device, common::uint16_t function, common::uint32_t registeroffset);
+                void Write(common::uint16_t bus, common::uint16_t device, common::uint16_t function, common::uint32_t registeroffset, common::uint32_t value);
+                bool DeviceHasFunctions(common::uint16_t bus, common::uint16_t device);
 
                 void SelectDrivers(kubos::drivers::DriverManager* driverManager);
                 PeripheralComponentInterconnectDeviceDescriptor GetDeviceDescriptor(common::uint16_t bus, common::uint16_t device, common::uint16_t function);
