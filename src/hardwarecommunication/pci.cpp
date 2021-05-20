@@ -79,6 +79,9 @@ void PeripheralComponentInterconnectController::SelectDrivers(DriverManager* dri
     }
 }
 
+PeripheralComponentInterconnectDeviceDescriptor::PeripheralComponentInterconnectDeviceDescriptor() {}
+PeripheralComponentInterconnectDeviceDescriptor::~PeripheralComponentInterconnectDeviceDescriptor() {}
+
 PeripheralComponentInterconnectDeviceDescriptor PeripheralComponentInterconnectController::GetDeviceDescriptor(uint16_t bus, uint16_t device, uint16_t function) {
     PeripheralComponentInterconnectDeviceDescriptor result;
 
