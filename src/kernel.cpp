@@ -145,17 +145,17 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
     
     DriverManager drvManager;
     
-        PrintfKeyboardEventHandler kbhandler;
-        KeyboardDriver keyboard(&interrupts, &kbhandler);
-        drvManager.AddDriver(&keyboard);
-    
-        MouseToConsole mousehandler;
-        MouseDriver mouse(&interrupts, &mousehandler);
-        drvManager.AddDriver(&mouse);
+    PrintfKeyboardEventHandler kbhandler;
+    KeyboardDriver keyboard(&interrupts, &kbhandler);
+    drvManager.AddDriver(&keyboard);
+
+    MouseToConsole mousehandler;
+    MouseDriver mouse(&interrupts, &mousehandler);
+    drvManager.AddDriver(&mouse);
         
 
     printf("Initializing Hardware, Stage 2\n");
-        drvManager.ActivateAll();
+    drvManager.ActivateAll();
         
     printf("Initializing Hardware, Stage 3\n");
     interrupts.Activate();
