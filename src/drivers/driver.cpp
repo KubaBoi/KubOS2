@@ -1,6 +1,6 @@
 
 #include <drivers/driver.h>
-using namespace myos::drivers;
+using namespace kubos::drivers;
  
 Driver::Driver()
 {

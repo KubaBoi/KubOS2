@@ -2,9 +2,9 @@
 #include <drivers/mouse.h>
 
 
-using namespace myos::common;
-using namespace myos::drivers;
-using namespace myos::hardwarecommunication;
+using namespace kubos::common;
+using namespace kubos::drivers;
+using namespace kubos::hardwarecommunication;
 
 
 void printf(char*);

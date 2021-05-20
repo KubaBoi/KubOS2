@@ -1,7 +1,7 @@
 
 #include <hardwarecommunication/port.h>
-using namespace myos::common;
-using namespace myos::hardwarecommunication;
+using namespace kubos::common;
+using namespace kubos::hardwarecommunication;
 
 
 Port::Port(uint16_t portnumber)

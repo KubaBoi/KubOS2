@@ -1,7 +1,7 @@
-#ifndef __MYOS__COMMON__TYPES_H
-#define __MYOS__COMMON__TYPES_H
+#ifndef __KUBOS__COMMON__TYPES_H
+#define __KUBOS__COMMON__TYPES_H
 
-namespace myos
+namespace kubos
 {
     namespace common
     {

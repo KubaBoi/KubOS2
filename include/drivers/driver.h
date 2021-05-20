@@ -1,8 +1,8 @@
  
-#ifndef __MYOS__DRIVERS__DRIVER_H
-#define __MYOS__DRIVERS__DRIVER_H
+#ifndef __KUBOS__DRIVERS__DRIVER_H
+#define __KUBOS__DRIVERS__DRIVER_H
 
-namespace myos
+namespace kubos
 {
     namespace drivers
     {

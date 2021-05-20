@@ -1,7 +1,7 @@
 
 #include <gdt.h>
-using namespace myos;
-using namespace myos::common;
+using namespace kubos;
+using namespace kubos::common;
 
 
 GlobalDescriptorTable::GlobalDescriptorTable()

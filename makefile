@@ -24,7 +24,7 @@ objects = obj/loader.o \
 run: $(OSNAME).iso
 #	qemu-system-x86_64 -boot d -cdrom $(OSNAME).iso -m 512
 	(killall VirtualBox && sleep 1) || true
-	VirtualBox --startvm $(OSNAME) &
+	VirtualBox --startvm $(OSNAME).iso &
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
