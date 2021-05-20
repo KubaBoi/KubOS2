@@ -1,4 +1,7 @@
-#include "gdt.h"
+
+#include <gdt.h>
+using namespace myos;
+using namespace myos::common;
 
 
 GlobalDescriptorTable::GlobalDescriptorTable()
@@ -97,3 +100,4 @@ uint32_t GlobalDescriptorTable::SegmentDescriptor::Limit()
 
     return result;
 }
+
