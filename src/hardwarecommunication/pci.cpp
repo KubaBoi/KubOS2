@@ -86,6 +86,7 @@ Driver* PeripheralComponentInterconnectController::GetDriver(PeripheralComponent
         case 0x1022: // AMD
             switch (dev.device_id) {
                 case 0x2000: // am79c973
+                    printf("AMD am79c973 ");
                     break; 
             }
             break;
