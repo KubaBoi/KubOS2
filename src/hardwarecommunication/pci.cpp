@@ -51,7 +51,62 @@ bool PeripheralComponentInterconnectController::DeviceHasFunctions(common::uint1
     return Read(bus, device, 0, 0x0E) & (1<<7);
 }
 
-void PeripheralComponentInterconnectController::SelectDrivers(DriverManager* driverManager) {
+BaseAddressRegister PeripheralComponentInterconnectController::GetBaseAddressRegister(uint16_t bus, uint16_t device, uint16_t function, uint16_t bar) {
+    BaseAddressRegister result;
+
+    uint32_t headertype = Read(bus, device, function, 0x0E) & 0x7F;
+    int maxBARs = 6 - (4*headertype);
+    if (bar >= maxBARs)
+        return result;
+
+    uint32_t bar_value = Read(bus, device, function, 0x10 + 4*bar);
+    result.type = (bar_value & 0x1) ? InputOutput : MemoryMapping;
+    uint32_t temp;
+
+    if (result.type == MemoryMapping) {
+        switch ((bar_value >> 1) & 0x3) {
+            case 0: //32 Bit Mode
+                break;
+            case 1: //20 Bit Mode
+                break;
+            case 2: //64 Bit Mode
+                break;
+        }
+    }
+    else { //INPUTOUTPUT
+        result.address = (uint8_t*)(bar_value & ~0x3);
+        result.prefetchable = false;
+    }
+
+    return result;
+}
+
+Driver* PeripheralComponentInterconnectController::GetDriver(PeripheralComponentInterconnectDeviceDescriptor dev, InterruptManager* interrupts) {
+    switch (dev.vendor_id) {
+        case 0x1022: // AMD
+            switch (dev.device_id) {
+                case 0x2000: // am79c973
+                    break; 
+            }
+            break;
+
+        case 0x8086: // Intel
+            break;
+    }
+
+    switch (dev.class_id) {
+        case 0x03: // graphics
+            switch (dev.subclass_id) {
+                case 0x00: // VGA
+                    break;
+            }
+            break;
+    }
+
+    return 0;
+}
+
+void PeripheralComponentInterconnectController::SelectDrivers(DriverManager* driverManager, InterruptManager* interrupts) {
     for(int bus = 0; bus < 8; bus++)
     {
         for(int device = 0; device < 32; device++)
@@ -61,8 +116,21 @@ void PeripheralComponentInterconnectController::SelectDrivers(DriverManager* dri
             {
                 PeripheralComponentInterconnectDeviceDescriptor dev = GetDeviceDescriptor(bus, device, function);
                 
-                if(dev.vendor_id == 0x0000 || dev.vendor_id == 0xFFFF) //no more functions
-                    break;
+                if(dev.vendor_id == 0x0000 || dev.vendor_id == 0xFFFF) { //no function here
+                    continue;
+                }
+
+                for (int barNum = 0; barNum < 6; barNum++) {
+                    BaseAddressRegister bar = GetBaseAddressRegister(bus, device, function, barNum);
+                    if (bar.address && (bar.type == InputOutput)) {
+                        dev.portBase = (uint32_t)bar.address;
+                    }
+
+                    Driver* driver = GetDriver(dev, interrupts);
+                    if (driver != 0) {
+                        driverManager->AddDriver(driver);
+                    }
+                }
                 
                 printf("PCI BUS ");
                 printfHex(bus & 0xFF);
