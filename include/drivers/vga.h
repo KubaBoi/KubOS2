@@ -29,8 +29,14 @@ namespace kubos {
                 virtual common::uint8_t GetColorIndex(common::uint8_t r, common::uint8_t g, common::uint8_t b);
 
             public:
+                common::uint8_t pixelAddressBuffer[320*200];
+                common::uint32_t W;
+                common::uint32_t H;
+
                 VideoGraphicsArray();
                 ~VideoGraphicsArray();
+
+                void Render();
 
                 virtual bool SupportsMode(common::uint32_t width, common::uint32_t height, common::uint32_t colordepth);
                 virtual bool SetMode(common::uint32_t width, common::uint32_t height, common::uint32_t colordepth);

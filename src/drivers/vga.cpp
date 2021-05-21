@@ -5,17 +5,19 @@ using namespace kubos::drivers;
 
 
 VideoGraphicsArray::VideoGraphicsArray() :
-    miscPort(0x3c2),
-    crtcIndexPort(0x3d4),
-    crtcDataPort(0x3d5),
-    sequencerIndexPort(0x3c4),
-    sequencerDataPort(0x3c5),
-    graphicsControllerIndexPort(0x3ce),
-    graphicsControllerDataPort(0x3cf),
-    attributeControllerIndexPort(0x3c0),
-    attributeControllerReadPort(0x3c1),
-    attributeControllerWritePort(0x3c0),
-    attributeControllerResetPort(0x3da) {
+miscPort(0x3c2),
+crtcIndexPort(0x3d4),
+crtcDataPort(0x3d5),
+sequencerIndexPort(0x3c4),
+sequencerDataPort(0x3c5),
+graphicsControllerIndexPort(0x3ce),
+graphicsControllerDataPort(0x3cf),
+attributeControllerIndexPort(0x3c0),
+attributeControllerReadPort(0x3c1),
+attributeControllerWritePort(0x3c0),
+attributeControllerResetPort(0x3da) {
+    W = 320;
+    H = 200;
 }
 
 VideoGraphicsArray::~VideoGraphicsArray() {
@@ -113,9 +115,11 @@ void VideoGraphicsArray::PutPixel(int32_t x, int32_t y, uint8_t colorIndex) {
     if (x < 0 || 320 <= x 
     || y < 0 || 200 <= y)
         return;
-        
-    uint8_t* pixelAddress = GetFrameBufferSegment() + 320*y + x;
-    *pixelAddress = colorIndex;
+
+    /*uint8_t* pixelAddress = GetFrameBufferSegment() + 320*y + x;
+    *pixelAddress = colorIndex;*/
+
+    pixelAddressBuffer[320*y + x] = colorIndex;
 }
 
 uint8_t VideoGraphicsArray::GetColorIndex(uint8_t r, uint8_t g, uint8_t b) {
@@ -136,6 +140,15 @@ void VideoGraphicsArray::FillRectangle(uint32_t x, uint32_t y, uint32_t w, uint3
     for (uint32_t Y = y; Y < y+h; Y++) {
         for (uint32_t X = x; X < x+w; X++) {
             PutPixel(X, Y, r, g, b);
+        }
+    }
+}
+
+void VideoGraphicsArray::Render() {
+    for (uint32_t y = 0; y < H; y++) {
+        for (uint32_t x = 0; x < W; x++) {
+            uint8_t* pixelAddress = GetFrameBufferSegment() + 320*y + x;
+            *pixelAddress = pixelAddressBuffer[320*y + x];
         }
     }
 }
