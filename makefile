@@ -48,8 +48,12 @@ $(OSNAME).iso: $(OSNAME).bin
 	echo '  boot'                            >> iso/boot/grub/grub.cfg
 	echo '}'                                 >> iso/boot/grub/grub.cfg
 	grub-mkrescue --output=$(OSNAME).iso iso
-	rm -rf iso
 
 .PHONY: clean
 clean:
 	rm -rf obj $(OSNAME).bin $(OSNAME).iso
+
+.PHONY: cleanAll
+cleanAll:
+	rm -rf obj $(OSNAME).bin $(OSNAME).iso
+	rm -r iso
