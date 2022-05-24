@@ -1,4 +1,6 @@
 # Install
 
-- sudo apt-get install g++ binutils libc6-dev-i386
-- sudo apt-get install VirtualBox grub-legacy xorriso
+- sudo apt install g++ binutils libc6-dev-i386
+- sudo apt install xorriso
+- sudo apt install make
+- sudo apt install grub-common
