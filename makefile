@@ -1,7 +1,4 @@
 
-# sudo apt-get install g++ binutils libc6-dev-i386
-# sudo apt-get install VirtualBox grub-legacy xorriso
-
 OSNAME = KubOS
 
 GCCPARAMS = -m32 -Iinclude -fno-use-cxa-atexit -nostdlib -fno-builtin -fno-rtti -fno-exceptions -fno-leading-underscore -Wno-write-strings
@@ -26,8 +23,6 @@ objects = obj/loader.o \
 
 run: $(OSNAME).iso
 	qemu-system-x86_64 -boot d -cdrom $(OSNAME).iso -m 512
-#	(killall VirtualBox && sleep 1) || true
-#	VirtualBox --startvm '$(OSNAME)' &
 
 obj/%.o: src/%.cpp
 	mkdir -p $(@D)
