@@ -176,13 +176,13 @@ extern "C" void kernelMain(const void* multiboot_structure, uint32_t /*multiboot
 
     Window win1(&desktop, 10, 10, 20, 20, 0xA8,0x00,0x00);
     desktop.AddChild(&win1);
-    //Window win2(&desktop, 35, 15, 100, 80, 0x00,0xA8,0x00);
-    //desktop.AddChild(&win2);
+    Window win2(&desktop, 35, 15, 100, 80, 0x00,0xA8,0x00);
+    desktop.AddChild(&win2);
 
     interrupts.Activate();
 
     while(true) {
         desktop.Draw(&vga);
-        vga.Render();
+        //vga.Render();
     }
 }
